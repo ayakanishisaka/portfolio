@@ -7,4 +7,165 @@
     android:layout_height="match_parent"
     tools:context=".New">
 
+    <EditText
+        android:id="@+id/newEdtMemo"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newEdtDeadLine" />
+
+    <TextView
+        android:id="@+id/txtMemo"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtMemo"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDeadLine" />
+
+    <EditText
+        android:id="@+id/newEdtDeadLine"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newEdtName3" />
+
+    <TextView
+        android:id="@+id/txtDeadLine"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtDeadLine"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtName3" />
+
+    <EditText
+        android:id="@+id/newEdtName3"
+        android:layout_width="256dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newEdtName2" />
+
+    <TextView
+        android:id="@+id/txtName3"
+        android:layout_width="32dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtName3"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/txtName2"
+        app:layout_constraintTop_toBottomOf="@+id/txtName2" />
+
+    <EditText
+        android:id="@+id/newEdtName2"
+        android:layout_width="256dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newEdtName1" />
+
+    <TextView
+        android:id="@+id/txtName2"
+        android:layout_width="32dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtName2"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/txtName1"
+        app:layout_constraintTop_toBottomOf="@+id/txtName1" />
+
+    <EditText
+        android:id="@+id/newEdtName1"
+        android:layout_width="256dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newEdtTitle" />
+
+    <TextView
+        android:id="@+id/txtName1"
+        android:layout_width="32dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtName1"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+    <TextView
+        android:id="@+id/newTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="@string/newTxt"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/newBtnEntry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="120dp"
+        android:text="@string/btnEntry"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/newEdtTitle"
+        android:layout_width="288dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newTxt" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="44dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/txtTitle"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newTxt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

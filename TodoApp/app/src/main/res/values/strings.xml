@@ -2,5 +2,20 @@
     <string name="app_name">ToDoApp</string>
     <string name="topTxt">ToDoリスト</string>
     <string name="btnNew">新規</string>
-    <string name="btnAll">一覧</string>
+    <string name="btnList">一覧</string>
+    <string name="newTxt">新規登録</string>
+    <string name="btnEntry">登録</string>
+    <string name="txtTitle">名：</string>
+    <string name="txtName1">１：</string>
+    <string name="txtName2">２：</string>
+    <string name="txtName3">３：</string>
+    <string name="txtDeadLine">期限：</string>
+    <string name="txtMemo">メモ：</string>
+    <string name="editorTitle">編集</string>
+    <string name="btnDelete">削除</string>
+    <string name="listTitle">一覧</string>
+    <string name="txtSearch">検索</string>
+    <string name="txtNowList">現在進行中（期日順）</string>
+    <string name="txt">現在進行中（期日順）</string>
+    <string name="btnToTop">TOP</string>
 </resources>
