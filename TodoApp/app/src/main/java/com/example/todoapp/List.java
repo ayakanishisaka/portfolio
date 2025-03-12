@@ -22,10 +22,14 @@ public class List extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void onClick(View v) {
-        if (v.getId() == R.id.btnToTop) {
+        if (v.getId() == R.id.newBtnEntry) {
+            Intent intentNewEntry = new Intent(this, New.class);
+            startActivity(intentNewEntry);
+        } else if (v.getId() == R.id.btnToTop) {
             Intent intentToTop = new Intent(this, MainActivity.class);
             startActivity(intentToTop);
-        }
-        finish();
+        } else
+            finish();
     }
+
 }

@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intentNew);
         }
         if (v.getId() == R.id.btnList) {
-            Intent intentList = new Intent(this,List.class);
+            Intent intentList = new Intent(this, List.class);
             startActivity(intentList);
         }
-        if(v.getId()==R.id.btnToTop){
+        if (v.getId() == R.id.btnToTop) {
             finish();
         }
     }
