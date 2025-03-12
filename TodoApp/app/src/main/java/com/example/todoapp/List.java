@@ -25,7 +25,7 @@ public class List extends AppCompatActivity implements View.OnClickListener {
         if (v.getId() == R.id.btnToTop) {
             Intent intentToTop = new Intent(this, MainActivity.class);
             startActivity(intentToTop);
-            finish();
         }
+        finish();
     }
 }
