@@ -1,5 +1,6 @@
 package com.example.todoapp;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class New extends AppCompatActivity implements View.OnClickListener {
+public class NewActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button newBtnEntry;
     Button btnToTop;
@@ -26,7 +27,7 @@ public class New extends AppCompatActivity implements View.OnClickListener {
 
     public void onClick(View v) {
         if (v.getId() == R.id.newBtnEntry) {
-            Intent intentNewEntry = new Intent(this, List.class);
+            Intent intentNewEntry = new Intent(this, ListActivity.class);
             startActivity(intentNewEntry);
         }
         if (v.getId() == R.id.btnToTop) {

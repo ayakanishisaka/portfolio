@@ -13,13 +13,13 @@
         android:theme="@style/Theme.ToDoApp"
         tools:targetApi="31">
         <activity
-            android:name=".Edit"
+            android:name=".EditActivity"
             android:exported="false" />
         <activity
             android:name=".List"
             android:exported="false" />
         <activity
-            android:name=".New"
+            android:name=".NewActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

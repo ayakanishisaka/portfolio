@@ -1,12 +1,12 @@
 package com.example.todoapp;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnNew) {
-            Intent intentNew = new Intent(this, New.class);
+            Intent intentNew = new Intent(this, NewActivity.class);
             startActivity(intentNew);
         }
         if (v.getId() == R.id.btnList) {
-            Intent intentList = new Intent(this, List.class);
+            Intent intentList = new Intent(this, ListActivity.class);
             startActivity(intentList);
         }
         if (v.getId() == R.id.btnToTop) {
