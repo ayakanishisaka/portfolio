@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +18,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnNew;
     Button btnList;
     CalendarView calendar;
+    private Spinner yearSpinner;
+    private Spinner monthSpinner;
+    private Spinner daySpinner;
+    private DateSpinner dateSpinner;  // DateSpinner クラスのインスタンス
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                // 予定のTodoリストとかにしてもいいんじゃない？
 //            }
 //        });
-
-
     }
+
 
     @Override
     public void onClick(View v) {
