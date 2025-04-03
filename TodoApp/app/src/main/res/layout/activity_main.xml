@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/topTxt"
+        android:id="@+id/txtTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
@@ -55,7 +55,7 @@
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTop" />
 <!--        android:background="#eddbff"-->
 
 

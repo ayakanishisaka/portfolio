@@ -3,7 +3,7 @@
     <string name="topTxt">ToDoリスト</string>
     <string name="btnNew">新規</string>
     <string name="btnList">一覧</string>
-    <string name="newTxt">新規登録</string>
+    <string name="txtNew">新規登録</string>
     <string name="btnEntry">登録</string>
     <string name="txtTitle">名：</string>
     <string name="txtName1">１：</string>

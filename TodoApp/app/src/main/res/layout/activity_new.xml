@@ -11,121 +11,31 @@
         android:id="@+id/memo"
         android:layout_width="280dp"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deadLine" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
         android:id="@+id/txtMemo"
         android:layout_width="52dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/txtMemo"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDeadLine" />
-
-    <EditText
-        android:id="@+id/deadLine"
-        android:layout_width="280dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subTitle3" />
-
-    <TextView
-        android:id="@+id/txtDeadLine"
-        android:layout_width="52dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtDeadLine"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtName3" />
-
-    <EditText
-        android:id="@+id/subTitle3"
-        android:layout_width="256dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subTitle2" />
-
-    <TextView
-        android:id="@+id/txtName3"
-        android:layout_width="32dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtName3"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/txtName2"
-        app:layout_constraintTop_toBottomOf="@+id/txtName2" />
-
-    <EditText
-        android:id="@+id/subTitle2"
-        android:layout_width="256dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subTitle1" />
-
-    <TextView
-        android:id="@+id/txtName2"
-        android:layout_width="32dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtName2"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/txtName1"
-        app:layout_constraintTop_toBottomOf="@+id/txtName1" />
-
-    <EditText
-        android:id="@+id/subTitle1"
-        android:layout_width="256dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toDoTitle" />
-
-    <TextView
-        android:id="@+id/txtName1"
-        android:layout_width="32dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtName1"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
     <TextView
-        android:id="@+id/newTxt"
+        android:id="@+id/txtNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
-        android:text="@string/newTxt"
+        android:text="@string/txtNew"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -161,7 +71,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/toDoTitle"
+        android:id="@+id/title"
         android:layout_width="288dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
@@ -190,7 +100,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNew" />
 
     <Spinner
         android:id="@+id/months"
@@ -198,8 +108,8 @@
         android:layout_height="22dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/yearTxt"
-        app:layout_constraintTop_toBottomOf="@+id/newTxt" />
+        app:layout_constraintStart_toEndOf="@+id/txtYear"
+        app:layout_constraintTop_toBottomOf="@+id/txtNew" />
 
     <Spinner
         android:id="@+id/days"
@@ -207,11 +117,11 @@
         android:layout_height="22dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/monthTxt"
-        app:layout_constraintTop_toBottomOf="@+id/newTxt" />
+        app:layout_constraintStart_toEndOf="@+id/txtMonth"
+        app:layout_constraintTop_toBottomOf="@+id/txtNew" />
 
     <TextView
-        android:id="@+id/yearTxt"
+        android:id="@+id/txtYear"
         android:layout_width="30dp"
         android:layout_height="22dp"
         android:layout_marginStart="5dp"
@@ -220,7 +130,7 @@
         tools:layout_editor_absoluteY="130dp" />
 
     <TextView
-        android:id="@+id/monthTxt"
+        android:id="@+id/txtMonth"
         android:layout_width="30dp"
         android:layout_height="22dp"
         android:layout_marginStart="5dp"
@@ -229,7 +139,7 @@
         tools:layout_editor_absoluteY="130dp" />
 
     <TextView
-        android:id="@+id/dayTxt"
+        android:id="@+id/txtDay"
         android:layout_width="30dp"
         android:layout_height="22dp"
         android:layout_marginStart="5dp"

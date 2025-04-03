@@ -17,11 +17,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnNew;
     Button btnList;
-    CalendarView calendar;
-    private Spinner yearSpinner;
-    private Spinner monthSpinner;
-    private Spinner daySpinner;
-    private DateSpinner dateSpinner;  // DateSpinner クラスのインスタンス
+    // CalendarView calendar;
 
 
     @Override
@@ -35,24 +31,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnNew.setOnClickListener(this);
         btnList.setOnClickListener(this);
 
-        calendar = findViewById(R.id.calendar);
-        Date d = new Date();
+//        calendar = findViewById(R.id.calendar);
+//        Date d = new Date();
 // 現在日付を設定
-        calendar.setDate(d.getTime());
+//        calendar.setDate(d.getTime());
 // 現在日付を取得
-        Date today = new Date(calendar.getDate());
-
-        calendar.setFirstDayOfWeek((Calendar.MONDAY));
-        int firstDayOfWeek = calendar.getFirstDayOfWeek();
-
-//           calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//            @Override
-//            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-//                // 日付が選択されたときの処理
-//                // year, month, dayOfMonth を使用して処理を行う
-//                // 予定のTodoリストとかにしてもいいんじゃない？
-//            }
-//        });
+//        Date today = new Date(calendar.getDate());
+//
+//        calendar.setFirstDayOfWeek((Calendar.MONDAY));
+//        int firstDayOfWeek = calendar.getFirstDayOfWeek();
     }
 
 
