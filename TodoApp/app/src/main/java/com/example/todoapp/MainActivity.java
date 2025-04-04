@@ -17,7 +17,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnNew;
     Button btnList;
-    // CalendarView calendar;
+//    CalendarView calendar;
 
 
     @Override
@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //        calendar = findViewById(R.id.calendar);
 //        Date d = new Date();
-// 現在日付を設定
+// //現在日付を設定
 //        calendar.setDate(d.getTime());
-// 現在日付を取得
+// //現在日付を取得
 //        Date today = new Date(calendar.getDate());
 //
 //        calendar.setFirstDayOfWeek((Calendar.MONDAY));

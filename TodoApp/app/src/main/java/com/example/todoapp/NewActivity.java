@@ -1,6 +1,5 @@
 package com.example.todoapp;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class NewActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button newBtnEntry;
+    EditText title;
+    EditText memo;
+    Button btnEntry;
     Button btnToTop;
-    EditText titleEditText;
-    EditText memoEditText;
     Spinner years ;
     Spinner months ;
     Spinner days ;
@@ -25,12 +24,12 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
 
-        titleEditText = findViewById(R.id.title);
-        memoEditText = findViewById(R.id.memo);
-        newBtnEntry = findViewById(R.id.newBtnEntry);
+        title = findViewById(R.id.title);
+        memo = findViewById(R.id.memo);
+        btnEntry = findViewById(R.id.btnEntry);
         btnToTop = findViewById(R.id.btnToTop);
 
-        newBtnEntry.setOnClickListener(this);
+        btnEntry.setOnClickListener(this);
         btnToTop.setOnClickListener(this);
 
         // スピナー部品をレイアウトから取得
@@ -43,8 +42,6 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
 
     public void onClick(View v) {
 
-        if (v.getId() == R.id.newBtnEntry) {
-        }
         if (v.getId() == R.id.btnToTop) {
             Intent intentToTop = new Intent(this, MainActivity.class);
             startActivity(intentToTop);
