@@ -20,6 +20,7 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
     EditText memo;
     Button btnList;
     Button btnToTop;
+    TodoDbHelper dbHelper;
 
 
     @Override
@@ -70,6 +71,7 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySpinner.setAdapter(dayAdapter);
+
 
 
     }

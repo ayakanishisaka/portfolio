@@ -1,6 +1,8 @@
 package com.example.test;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnNew.setOnClickListener(this);
         btnList.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnNew) {
