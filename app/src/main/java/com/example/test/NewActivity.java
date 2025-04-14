@@ -1,6 +1,9 @@
 package com.example.test;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,11 +19,12 @@ import java.util.ArrayList;
 
 public class NewActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText title;
-    EditText memo;
-    Button btnList;
-    Button btnToTop;
+    EditText title, memo;
+    Button btnList, btnToTop;
+    Spinner yearSpinner, monthSpinner, daySpinner;
     TodoDbHelper dbHelper;
+    SQLiteDatabase db;
+    ContentValues values;
 
 
     @Override
@@ -36,10 +40,11 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         btnList.setOnClickListener(this);
         btnToTop.setOnClickListener(this);
 
-        // スピナーに年、月、日を設定するメソッド
-        Spinner yearSpinner = findViewById(R.id.years);
-        Spinner monthSpinner = findViewById(R.id.months);
-        Spinner daySpinner = findViewById(R.id.days);
+        dbHelper = new TodoDbHelper(this); //dbHelperの初期化
+
+        yearSpinner = findViewById(R.id.years);
+        monthSpinner = findViewById(R.id.months);
+        daySpinner = findViewById(R.id.days);
 
         // 年を選択
         ArrayList<String> years = new ArrayList<>();
@@ -73,17 +78,70 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         daySpinner.setAdapter(dayAdapter);
 
 
+        //Listの選択した1件を再編集する
+        int todoId = getIntent().getIntExtra("id", -1); //int型の値を取り出す もしキーが見つからなかったら-1を代入
 
+        if (todoId != -1) {
+            db = dbHelper.getReadableDatabase();
+            Cursor cursor = db.query("todos", null, "id=?",
+                    new String[]{String.valueOf(todoId)}, null, null, null);
+            if (cursor.moveToFirst()) {
+                String editTitle = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                String editMemo = cursor.getString(cursor.getColumnIndexOrThrow("memo"));
+
+                title.setText(editTitle);
+                memo.setText(editMemo);
+
+                String[] parts = date.split("/");
+                yearSpinner.setSelection(years.indexOf(parts[0]));
+                monthSpinner.setSelection(years.indexOf(parts[1]));
+                daySpinner.setSelection(years.indexOf(parts[2]));
+            }
+            cursor.close();
+        }
+        if (todoId == -1) { //新しいIDなら
+            db.insert("todos", null, values); // INSERT（新規登録）
+        } else {
+            db.update("todos", values, "id = ?", new String[]{String.valueOf(todoId)}); // UPDATE（編集）
+        }
+        db.close();
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnList) {
-            Toast.makeText(this, "登録されました", Toast.LENGTH_SHORT).show();
-            Intent intentList = new Intent(this, ToDoListActivity.class);
-            startActivity(intentList);
+        int id = v.getId();
+
+        if (id == R.id.btnList) {
+
+            String titleS = title.getText().toString();
+            String memoS = memo.getText().toString();
+            String year = yearSpinner.getSelectedItem().toString();
+            String month = monthSpinner.getSelectedItem().toString();
+            String day = daySpinner.getSelectedItem().toString();
+            String dateS = year + "/" + month + "/" + day;
+
+            if (titleS.equals("")) {
+                Toast.makeText(this, "タイトルの入力は必須です", Toast.LENGTH_SHORT).show();
+            } else {
+                SQLiteDatabase db = dbHelper.getWritableDatabase();  //書き込み用のDBを開く
+
+                values = new ContentValues();  //保存する内容をまとめる
+                values.put("title", titleS);
+                values.put("memo", memoS);
+                values.put("date", dateS);
+                long newRowId = db.insert("todos", null, values);  //データを保存&追加IDが返ってくる
+
+                if (newRowId != -1) {
+                    Toast.makeText(this, "登録されました", Toast.LENGTH_SHORT).show();
+                    Intent intentList = new Intent(this, ToDoListActivity.class);
+                    startActivity(intentList);
+
+                } else {
+                    Toast.makeText(this, "登録に失敗しました", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
-        if (v.getId() == R.id.btnToTop) {
+        if (id == R.id.btnToTop) {
             Intent intentToTop = new Intent(this, MainActivity.class);
             startActivity(intentToTop);
         }

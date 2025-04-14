@@ -11,7 +11,7 @@
         android:id="@+id/txtNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="90dp"
         android:text="@string/txtEntry"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,7 @@
 
     <Spinner
         android:id="@+id/years"
-        android:layout_width="115dp"
+        android:layout_width="105dp"
         android:layout_height="22dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
@@ -29,7 +29,7 @@
 
     <Spinner
         android:id="@+id/months"
-        android:layout_width="85dp"
+        android:layout_width="83dp"
         android:layout_height="22dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/txtYear"
@@ -37,7 +37,7 @@
 
     <Spinner
         android:id="@+id/days"
-        android:layout_width="85dp"
+        android:layout_width="83dp"
         android:layout_height="22dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/txtMonth"
@@ -84,7 +84,7 @@
         android:id="@+id/txtMemo"
         android:layout_width="35dp"
         android:layout_height="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="@string/txtMemo"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/memo"
@@ -104,7 +104,7 @@
 
     <EditText
         android:id="@+id/memo"
-        android:layout_width="290dp"
+        android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="40dp"
@@ -122,7 +122,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:text="@string/btnEntry"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnToTop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -136,7 +136,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="60dp"
         android:text="@string/btnToTop"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -10,11 +10,6 @@
     <string name="btnDelete">削除</string>
     <string name="txtTitle"> ●</string>
     <string name="txtMemo">メモ</string>
-    <string name="txtName1">１：</string>
-    <string name="txtName2">２：</string>
-    <string name="txtName3">３：</string>
-    <string name="txtDeadLine">期限：</string>
-    <string name="txtSearch">検索</string>
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>

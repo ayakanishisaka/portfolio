@@ -11,146 +11,12 @@
         android:id="@+id/txtList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="90dp"
         android:text="@string/txtList"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/t1"
-        android:layout_width="30dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/txtTitle"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/title1"
-        app:layout_constraintTop_toBottomOf="@+id/txtList" />
-
-    <TextView
-        android:id="@+id/t2"
-        android:layout_width="30dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtTitle"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/title2"
-        app:layout_constraintTop_toBottomOf="@+id/m1" />
-
-    <TextView
-        android:id="@+id/t3"
-        android:layout_width="30dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtTitle"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/title3"
-        app:layout_constraintTop_toBottomOf="@+id/m2" />
-
-    <TextView
-        android:id="@+id/m1"
-        android:layout_width="35dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/txtMemo"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/memo1"
-        app:layout_constraintTop_toBottomOf="@+id/t1" />
-
-    <TextView
-        android:id="@+id/m2"
-        android:layout_width="35dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/txtMemo"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/memo2"
-        app:layout_constraintTop_toBottomOf="@+id/t2" />
-
-    <TextView
-        android:id="@+id/m3"
-        android:layout_width="35dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/txtMemo"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/memo3"
-        app:layout_constraintTop_toBottomOf="@+id/t3" />
-
-    <EditText
-        android:id="@+id/title1"
-        android:layout_width="300dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtList" />
-
-    <EditText
-        android:id="@+id/title2"
-        android:layout_width="300dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/memo1" />
-
-    <EditText
-        android:id="@+id/title3"
-        android:layout_width="300dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/memo2" />
-
-
-    <EditText
-        android:id="@+id/memo1"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title1" />
-
-    <EditText
-        android:id="@+id/memo2"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title2" />
-
-    <EditText
-        android:id="@+id/memo3"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title3" />
 
     <Button
         android:id="@+id/btnNew"
@@ -160,7 +26,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:text="@string/btnNew"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnToTop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -174,11 +40,21 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="60dp"
         android:text="@string/btnToTop"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="377dp"
+        android:layout_height="378dp"
+        android:layout_marginTop="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
