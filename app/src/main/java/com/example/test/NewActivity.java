@@ -15,7 +15,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class NewActivity extends AppCompatActivity implements View.OnClickListener {
@@ -96,6 +100,18 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
             }
             cursor.close();
             db.close();
+
+        }else{
+            // Todo 現在日時をCalendarクラスを使って取得　→　年・月・日に分解
+            Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH)+1;
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // ToDo 現在日時を取得してセット
+            yearSpinner.setSelection(years.indexOf(String.valueOf(year)));
+            monthSpinner.setSelection(months.indexOf(String.format("%02d",month)));
+            daySpinner.setSelection(days.indexOf(String.format("%02d",day)));
         }
     }
 
@@ -111,6 +127,18 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
             String month = monthSpinner.getSelectedItem().toString();
             String day = daySpinner.getSelectedItem().toString();
             String dateS = year + "/" + month + "/" + day;
+
+            // Todo 日付の入力が正しい値かチェック　NGならbreak
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            // 厳密なチェックをしたいときは false（デフォルトは true）
+            sdf.setLenient(false);
+
+            try {
+                Date date = sdf.parse(dateS); // ← 2月30日は存在しない
+            } catch (ParseException e) {
+                Toast.makeText(this, "不正な日付です！", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if (titleS.equals("")) {
                 Toast.makeText(this, "タイトルの入力は必須です", Toast.LENGTH_SHORT).show();
