@@ -38,30 +38,25 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         memo = findViewById(R.id.memo);
         btnList = findViewById(R.id.btnList);
         btnToTop = findViewById(R.id.btnToTop);
+        yearSpinner = findViewById(R.id.years);
+        monthSpinner = findViewById(R.id.months);
+        daySpinner = findViewById(R.id.days);
 
         btnList.setOnClickListener(this);
         btnToTop.setOnClickListener(this);
 
         dbHelper = new TodoDbHelper(this); //dbHelperの初期化
 
-        yearSpinner = findViewById(R.id.years);
-        monthSpinner = findViewById(R.id.months);
-        daySpinner = findViewById(R.id.days);
-
-        // 年を選択
         ArrayList<String> years = new ArrayList<>();
+        ArrayList<String> months = new ArrayList<>();
+        ArrayList<String> days = new ArrayList<>();
+
         for (int i = 2025; i <= 2035; i++) {
             years.add(String.valueOf(i));
         }
-
-        // 月を選択
-        ArrayList<String> months = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
             months.add(String.format("%02d", i));
         }
-
-        // 日を選択
-        ArrayList<String> days = new ArrayList<>();
         for (int i = 1; i <= 31; i++) {
             days.add(String.format("%02d", i));
         }
@@ -79,7 +74,6 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySpinner.setAdapter(dayAdapter);
 
-
         //一覧から選択した1件を再編集するためにID(int)情報を取得(もしキーが見つからなかったら-1を代入)
         todoId = getIntent().getIntExtra("id", -1);
 
@@ -95,11 +89,7 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
                 memo.setText(editMemo);
 
                 String dateString = cursor.getString(cursor.getColumnIndexOrThrow("date"));
-                String[] partsString = dateString.split("/");
-                int[] parts = new int[3];
-                for (int i = 0; i < 3; i++) {
-                    parts[i] = Integer.valueOf(partsString[i]);
-                }
+                String[] parts = dateString.split("/");
                 yearSpinner.setSelection(years.indexOf(parts[0]));
                 monthSpinner.setSelection(months.indexOf(parts[1]));
                 daySpinner.setSelection(days.indexOf(parts[2]));
