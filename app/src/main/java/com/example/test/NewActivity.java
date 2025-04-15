@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+
 public class NewActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText title, memo;
@@ -25,6 +26,7 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
     TodoDbHelper dbHelper;
     SQLiteDatabase db;
     ContentValues values;
+    int todoId;
 
 
     @Override
@@ -78,10 +80,10 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         daySpinner.setAdapter(dayAdapter);
 
 
-        //Listの選択した1件を再編集する
-        int todoId = getIntent().getIntExtra("id", -1); //int型の値を取り出す もしキーが見つからなかったら-1を代入
+        //一覧から選択した1件を再編集するためにID(int)情報を取得(もしキーが見つからなかったら-1を代入)
+        todoId = getIntent().getIntExtra("id", -1);
 
-        if (todoId != -1) {
+        if (todoId != -1) { //IDがあるなら再編集
             db = dbHelper.getReadableDatabase();
             Cursor cursor = db.query("todos", null, "id=?",
                     new String[]{String.valueOf(todoId)}, null, null, null);
@@ -92,19 +94,19 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
                 title.setText(editTitle);
                 memo.setText(editMemo);
 
-                String[] parts = date.split("/");
+                String dateString = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+                String[] partsString = dateString.split("/");
+                int[] parts = new int[3];
+                for (int i = 0; i < 3; i++) {
+                    parts[i] = Integer.valueOf(partsString[i]);
+                }
                 yearSpinner.setSelection(years.indexOf(parts[0]));
-                monthSpinner.setSelection(years.indexOf(parts[1]));
-                daySpinner.setSelection(years.indexOf(parts[2]));
+                monthSpinner.setSelection(months.indexOf(parts[1]));
+                daySpinner.setSelection(days.indexOf(parts[2]));
             }
             cursor.close();
+            db.close();
         }
-        if (todoId == -1) { //新しいIDなら
-            db.insert("todos", null, values); // INSERT（新規登録）
-        } else {
-            db.update("todos", values, "id = ?", new String[]{String.valueOf(todoId)}); // UPDATE（編集）
-        }
-        db.close();
     }
 
     @Override
@@ -129,21 +131,32 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
                 values.put("title", titleS);
                 values.put("memo", memoS);
                 values.put("date", dateS);
-                long newRowId = db.insert("todos", null, values);  //データを保存&追加IDが返ってくる
 
-                if (newRowId != -1) {
-                    Toast.makeText(this, "登録されました", Toast.LENGTH_SHORT).show();
-                    Intent intentList = new Intent(this, ToDoListActivity.class);
-                    startActivity(intentList);
-
-                } else {
-                    Toast.makeText(this, "登録に失敗しました", Toast.LENGTH_SHORT).show();
+                if (todoId == -1) { //更新するIDがなかったら
+                    long newId = db.insert("todos", null, values); //新規登録
+                    if (newId != -1) {
+                        Toast.makeText(this, "登録されました", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "登録に失敗しました", Toast.LENGTH_SHORT).show();
+                    }
+                } else { //更新するIDがあれば
+                    int count = db.update("todos", values, "id = ?", new String[]{String.valueOf(todoId)});
+                    if (count > 0) {
+                        Toast.makeText(this, "更新されました", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "更新に失敗しました", Toast.LENGTH_SHORT).show();
+                    }
                 }
+                // 一覧に戻る
+                Intent intentList = new Intent(this, ToDoListActivity.class);
+                startActivity(intentList);
+                finish();
             }
         }
         if (id == R.id.btnToTop) {
             Intent intentToTop = new Intent(this, MainActivity.class);
             startActivity(intentToTop);
+            finish();
         }
     }
 }

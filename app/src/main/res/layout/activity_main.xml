@@ -16,7 +16,6 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -25,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/btnNew"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnList"
@@ -39,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="70dp"
         android:text="@string/btnList"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,12 +48,17 @@
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="373dp"
-        android:layout_height="346dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNew"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTop" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTop"
+        app:layout_constraintVertical_bias="0.5"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
