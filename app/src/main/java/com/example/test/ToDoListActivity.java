@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+
 public class ToDoListActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, View.OnClickListener, AdapterView.OnItemLongClickListener {
     Button btnNew, btnToTop;
@@ -34,14 +35,14 @@ public class ToDoListActivity extends AppCompatActivity
         btnNew = findViewById(R.id.btnNew);
         btnToTop = findViewById(R.id.btnToTop);
         listView = findViewById(R.id.listView);
-        todoList = new ArrayList<>(); //データを入れるリスト作成
+        todoList = new ArrayList<>(); // データを入れるリスト作成
         todoIdList = new ArrayList<>();
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todoList); //1行のテキストだけ表示
-        listView.setAdapter(adapter); //リストの中身をアダプターを使って表示
+        listView.setAdapter(adapter); // リストの中身をアダプターを使って表示
 
         listView.setOnItemClickListener(this);
-        listView.setOnItemLongClickListener(this);     // 長押しで削除確認ダイアログ
+        listView.setOnItemLongClickListener(this); // 長押しで削除確認するダイアログ
         btnNew.setOnClickListener(this);
         btnToTop.setOnClickListener(this);
 
@@ -51,48 +52,56 @@ public class ToDoListActivity extends AppCompatActivity
     }
 
     private void loadTodos() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase(); //読み取り専用DBを開く
-        todoList.clear(); //リストを一度クリアする（再読み込み対策）
+        SQLiteDatabase db = dbHelper.getReadableDatabase(); // 読み取り専用DBを開く
+        todoList.clear(); // リストを一度クリア（再読み込み対策）
         todoIdList.clear();
 
-        Cursor cursor = db.query("todos", null, null, null, null, null, "date ASC", null);
-        while (cursor.moveToNext()) { //次に行があるか
+        // 全列の情報を１件（１行）選択
+        Cursor cursor = db.query("todos", null, null,null,
+                null, null, "date ASC", null); // 日付順に並べ替える
+
+        while (cursor.moveToNext()) { // 次に行があるか
+            // 指定した列の情報を取得
             int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
             String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
             String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
             String memo = cursor.getString(cursor.getColumnIndexOrThrow("memo"));
-            todoList.add("● " + date + " : " + title + "  (" + memo + ")"); //表示用にデータをまとめる
+
+            // 表示用にデータをまとめる
+            todoList.add("● " + date + " : " + title + "  (" + memo + ")");
             todoIdList.add(id);
         }
         cursor.close();
         db.close();
 
-        adapter.notifyDataSetChanged(); //データの変更を伝える
+        adapter.notifyDataSetChanged(); // データの変更を伝える
     }
 
     @Override
+    // 各リストをタップで編集
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         int todoId = todoIdList.get(position); //押されたIDを取得
         Intent intent = new Intent(this, NewActivity.class);
-        intent.putExtra("id", todoId); // IDだけを渡す
+        intent.putExtra("id", todoId); //IDだけを渡す
         startActivity(intent);
     }
 
     @Override
+    // 各リストを長押しで削除
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        int todoId = todoIdList.get(position); // IDリストから取得
+        int todoId = todoIdList.get(position); //IDリストから取得
         String itemText = todoList.get(position);
 
         showDeleteDialog(todoId, itemText);
-        return true; //長押しだけに反応する(true）
+        return true; // 長押しだけに反応する(true）
     }
 
+    //削除ダイアログ
     private void showDeleteDialog(int todoId, String itemText) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("削除の確認");
-        builder.setMessage("このToDoを削除しますか？\n\n" + itemText);
+        builder.setTitle("このToDoを削除しますか？\n\n");
 
-        builder.setPositiveButton("削除", new DialogInterface.OnClickListener() { //OKのボタン
+        builder.setPositiveButton("削除", new DialogInterface.OnClickListener() { // OKボタン
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -102,7 +111,7 @@ public class ToDoListActivity extends AppCompatActivity
                 Toast.makeText(ToDoListActivity.this, "削除しました", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton("キャンセル", null); //NGのボタン
+        builder.setNegativeButton("キャンセル", null); // NGボタン
         builder.show();
     }
 

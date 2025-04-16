@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class NewActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,7 +32,6 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
     SQLiteDatabase db;
     ContentValues values;
     int todoId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         btnList.setOnClickListener(this);
         btnToTop.setOnClickListener(this);
 
-        dbHelper = new TodoDbHelper(this); //dbHelperの初期化
+        dbHelper = new TodoDbHelper(this); // dbHelperの初期化
 
         ArrayList<String> years = new ArrayList<>();
         ArrayList<String> months = new ArrayList<>();
@@ -65,23 +65,16 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
             days.add(String.format("%02d", i));
         }
 
-        // アダプターを使ってスピナーに選択肢を設定
-        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
-        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yearSpinner.setAdapter(yearAdapter);
+        //年・月・日の各スピナーにセットする
+        setupSpinner(yearSpinner, years);
+        setupSpinner(monthSpinner, months);
+        setupSpinner(daySpinner, days);
 
-        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, months);
-        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        monthSpinner.setAdapter(monthAdapter);
 
-        ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
-        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        daySpinner.setAdapter(dayAdapter);
+        //リストから選択した1件を再編集または新規登録かを判断する
+        todoId = getIntent().getIntExtra("id", -1);// ID(int)情報を取得(もしキーがなければ-1)
 
-        //一覧から選択した1件を再編集するためにID(int)情報を取得(もしキーが見つからなかったら-1を代入)
-        todoId = getIntent().getIntExtra("id", -1);
-
-        if (todoId != -1) { //IDがあるなら再編集
+        if (todoId != -1) { // IDがあるなら再編集
             db = dbHelper.getReadableDatabase();
             Cursor cursor = db.query("todos", null, "id=?",
                     new String[]{String.valueOf(todoId)}, null, null, null);
@@ -101,18 +94,28 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
             cursor.close();
             db.close();
 
-        }else{
+        } else {
             // Todo 現在日時をCalendarクラスを使って取得　→　年・月・日に分解
             Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH)+1;
+            int month = c.get(Calendar.MONTH) + 1;
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // ToDo 現在日時を取得してセット
             yearSpinner.setSelection(years.indexOf(String.valueOf(year)));
-            monthSpinner.setSelection(months.indexOf(String.format("%02d",month)));
-            daySpinner.setSelection(days.indexOf(String.format("%02d",day)));
+            monthSpinner.setSelection(months.indexOf(String.format("%02d", month)));
+            daySpinner.setSelection(days.indexOf(String.format("%02d", day)));
         }
+    }
+
+    // アダプター（配列をスピナーに接続するもの）を使ってスピナーに選択肢を設定
+    private void setupSpinner(Spinner spinner, List<String> data) {
+        // 現在の Context（このActivity）にアダプターを使ってdataをString型で一行表示する
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
+        // アダプターにドロップダウンを設定
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // 受け取ったスピナーに上記のレイアウトがあるアダプターをセットして表示
+        spinner.setAdapter(adapter);
     }
 
     @Override
@@ -128,41 +131,41 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
             String day = daySpinner.getSelectedItem().toString();
             String dateS = year + "/" + month + "/" + day;
 
-            // Todo 日付の入力が正しい値かチェック　NGならbreak
+            // Todo 日付の入力が正しい値かチェック　NGならreturn
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-            // 厳密なチェックをしたいときは false（デフォルトは true）
+            // 厳密なチェックをしたいときはfalse（デフォルト(勝手に修正)はtrue）
             sdf.setLenient(false);
 
             try {
                 Date date = sdf.parse(dateS); // ← 2月30日は存在しない
             } catch (ParseException e) {
-                Toast.makeText(this, "不正な日付です！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "存在しない日付です", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (titleS.equals("")) {
                 Toast.makeText(this, "タイトルの入力は必須です", Toast.LENGTH_SHORT).show();
             } else {
-                SQLiteDatabase db = dbHelper.getWritableDatabase();  //書き込み用のDBを開く
+                SQLiteDatabase db = dbHelper.getWritableDatabase(); // 書き込み用のDBを開く
 
-                values = new ContentValues();  //保存する内容をまとめる
+                values = new ContentValues(); // 保存する内容をまとめる
                 values.put("title", titleS);
                 values.put("memo", memoS);
                 values.put("date", dateS);
 
-                if (todoId == -1) { //更新するIDがなかったら
+                if (todoId != -1) { // IDがあれば更新
+                    int upId = db.update("todos", values, "id = ?", new String[]{String.valueOf(todoId)});
+                    if (upId > 0) {
+                        Toast.makeText(this, "更新されました", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "更新に失敗しました", Toast.LENGTH_SHORT).show();
+                    }
+                } else { // 更新するIDがなかったら(-1のまま）新規登録
                     long newId = db.insert("todos", null, values); //新規登録
                     if (newId != -1) {
                         Toast.makeText(this, "登録されました", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this, "登録に失敗しました", Toast.LENGTH_SHORT).show();
-                    }
-                } else { //更新するIDがあれば
-                    int count = db.update("todos", values, "id = ?", new String[]{String.valueOf(todoId)});
-                    if (count > 0) {
-                        Toast.makeText(this, "更新されました", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, "更新に失敗しました", Toast.LENGTH_SHORT).show();
                     }
                 }
                 // 一覧に戻る
