@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.ParseException;
@@ -28,10 +30,25 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
     EditText title, memo;
     Button btnList, btnToTop;
     Spinner yearSpinner, monthSpinner, daySpinner;
+    ArrayList<String> years, months, days;
     TodoDbHelper dbHelper;
     SQLiteDatabase db;
     ContentValues values;
+    CalendarView calendarView;
+    Calendar c;
     int todoId;
+
+//    private class DateChangeListener implements CalendarView.OnDateChangeListener {
+//        @Override
+//        public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+//
+//            String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+//
+//            yearSpinner.setSelection(years.indexOf(String.valueOf(year)));
+//            monthSpinner.setSelection(months.indexOf(String.format("%02d", month)));
+//            daySpinner.setSelection(days.indexOf(String.format("%02d", dayOfMonth)));
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +68,9 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
 
         dbHelper = new TodoDbHelper(this); // dbHelperの初期化
 
-        ArrayList<String> years = new ArrayList<>();
-        ArrayList<String> months = new ArrayList<>();
-        ArrayList<String> days = new ArrayList<>();
+        years = new ArrayList<>();
+        months = new ArrayList<>();
+        days = new ArrayList<>();
 
         for (int i = 2025; i <= 2035; i++) {
             years.add(String.valueOf(i));
@@ -69,7 +86,6 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         setupSpinner(yearSpinner, years);
         setupSpinner(monthSpinner, months);
         setupSpinner(daySpinner, days);
-
 
         //リストから選択した1件を再編集または新規登録かを判断する
         todoId = getIntent().getIntExtra("id", -1);// ID(int)情報を取得(もしキーがなければ-1)
@@ -95,13 +111,26 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
             db.close();
 
         } else {
-            // Todo 現在日時をCalendarクラスを使って取得　→　年・月・日に分解
-            Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH) + 1;
-            int day = c.get(Calendar.DAY_OF_MONTH);
+            // MainActivityのCalendarViewから渡された日付があるか確認
+            Intent intentDate = getIntent();
+            String passedYear = intentDate.getStringExtra("year");
+            String passedMonth = intentDate.getStringExtra("month");
+            String passedDay = intentDate.getStringExtra("day");
 
-            // ToDo 現在日時を取得してセット
+            int year, month, day;
+
+            if (passedYear != null && passedMonth != null && passedDay != null) {
+                year = Integer.parseInt(passedYear);
+                month = Integer.parseInt(passedMonth);
+                day = Integer.parseInt(passedDay);
+            } else {
+                // 渡されていなければ現在日時を使う
+                c = Calendar.getInstance();
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH) + 1;
+                day = c.get(Calendar.DAY_OF_MONTH);
+            }
+            // ToDo 日時を取得してセット
             yearSpinner.setSelection(years.indexOf(String.valueOf(year)));
             monthSpinner.setSelection(months.indexOf(String.format("%02d", month)));
             daySpinner.setSelection(days.indexOf(String.format("%02d", day)));

@@ -80,6 +80,11 @@ public class ToDoListActivity extends AppCompatActivity
     @Override
     // 各リストをタップで編集
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        parent	AdapterView<?>	長押しされたリスト全体 基本使用しない
+//        view	View	長押しされた表示している１行
+//        position	int	長押しされた項目のインデックス（0から始まる）
+//        id	long	アイテムのID 基本使用しない（CursorAdapter等では有効）
+
         int todoId = todoIdList.get(position); //押されたIDを取得
         Intent intent = new Intent(this, NewActivity.class);
         intent.putExtra("id", todoId); //IDだけを渡す
@@ -100,6 +105,7 @@ public class ToDoListActivity extends AppCompatActivity
     private void showDeleteDialog(int todoId, String itemText) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("このToDoを削除しますか？\n\n");
+        builder.setMessage(itemText);
 
         builder.setPositiveButton("削除", new DialogInterface.OnClickListener() { // OKボタン
             @Override

@@ -17,22 +17,34 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btnNew;
-    Button btnList;
+    Button btnNew, btnList;
+    CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CalendarView calendarView = findViewById(R.id.calendarView);
+        calendarView = findViewById(R.id.calendarView);
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
+        calendarView.setOnDateChangeListener(new MyDateChangeListener());
 
         btnNew = findViewById(R.id.btnNew);
         btnList = findViewById(R.id.btnList);
 
         btnNew.setOnClickListener(this);
         btnList.setOnClickListener(this);
+    }
+
+    // カレンダーの日付を検知する
+    private class MyDateChangeListener implements CalendarView.OnDateChangeListener{
+        public void onSelectedDayChange(CalendarView view , int year ,int month , int dayOfMonth){
+            Intent intentDate = new Intent(MainActivity.this, NewActivity.class);
+            intentDate.putExtra("year",String.valueOf(year));
+            intentDate.putExtra("month",String.format("%02d", month+1));
+            intentDate.putExtra("day",String.format("%02d",dayOfMonth));
+            startActivity(intentDate);
+        }
     }
 
     @Override
@@ -45,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intentList = new Intent(this, ToDoListActivity.class);
             startActivity(intentList);
         }
-
+        if (v.getId() == R.id.calendarView) {
+            Intent intentDate = new Intent(this, NewActivity.class);
+            startActivity(intentDate);
+        }
     }
 }
