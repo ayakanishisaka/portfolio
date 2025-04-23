@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.ParseException;
@@ -38,18 +36,6 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
     Calendar c;
     int todoId;
 
-//    private class DateChangeListener implements CalendarView.OnDateChangeListener {
-//        @Override
-//        public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-//
-//            String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
-//
-//            yearSpinner.setSelection(years.indexOf(String.valueOf(year)));
-//            monthSpinner.setSelection(months.indexOf(String.format("%02d", month)));
-//            daySpinner.setSelection(days.indexOf(String.format("%02d", dayOfMonth)));
-//        }
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,28 +52,12 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         btnList.setOnClickListener(this);
         btnToTop.setOnClickListener(this);
 
+
+        spinners();
+
         dbHelper = new TodoDbHelper(this); // dbHelperの初期化
 
-        years = new ArrayList<>();
-        months = new ArrayList<>();
-        days = new ArrayList<>();
-
-        for (int i = 2025; i <= 2035; i++) {
-            years.add(String.valueOf(i));
-        }
-        for (int i = 1; i <= 12; i++) {
-            months.add(String.format("%02d", i));
-        }
-        for (int i = 1; i <= 31; i++) {
-            days.add(String.format("%02d", i));
-        }
-
-        //年・月・日の各スピナーにセットする
-        setupSpinner(yearSpinner, years);
-        setupSpinner(monthSpinner, months);
-        setupSpinner(daySpinner, days);
-
-        //リストから選択した1件を再編集または新規登録かを判断する
+        //一覧画面のリストから選択した1件を再編集または新規登録かを判断する
         todoId = getIntent().getIntExtra("id", -1);// ID(int)情報を取得(もしキーがなければ-1)
 
         if (todoId != -1) { // IDがあるなら再編集
@@ -137,8 +107,29 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    private void spinners() {
+        years = new ArrayList<>();
+        months = new ArrayList<>();
+        days = new ArrayList<>();
+
+        for (int i = 2025; i <= 2035; i++) {
+            years.add(String.valueOf(i));
+        }
+        for (int i = 1; i <= 12; i++) {
+            months.add(String.format("%02d", i));
+        }
+        for (int i = 1; i <= 31; i++) {
+            days.add(String.format("%02d", i));
+        }
+
+        //年・月・日の各スピナーにセットする
+        spinnerAdapter(yearSpinner, years);
+        spinnerAdapter(monthSpinner, months);
+        spinnerAdapter(daySpinner, days);
+    }
+
     // アダプター（配列をスピナーに接続するもの）を使ってスピナーに選択肢を設定
-    private void setupSpinner(Spinner spinner, List<String> data) {
+    private void spinnerAdapter(Spinner spinner, List<String> data) {
         // 現在の Context（このActivity）にアダプターを使ってdataをString型で一行表示する
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
         // アダプターにドロップダウンを設定
