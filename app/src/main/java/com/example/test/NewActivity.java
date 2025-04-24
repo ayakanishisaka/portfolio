@@ -22,7 +22,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 public class NewActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText title, memo;
@@ -32,7 +31,6 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
     TodoDbHelper dbHelper;
     SQLiteDatabase db;
     ContentValues values;
-    CalendarView calendarView;
     Calendar c;
     int todoId;
 
@@ -52,7 +50,7 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
         btnList.setOnClickListener(this);
         btnToTop.setOnClickListener(this);
 
-
+        // アダプター使ってスピナーのセット
         spinners();
 
         dbHelper = new TodoDbHelper(this); // dbHelperの初期化
@@ -132,9 +130,11 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
     private void spinnerAdapter(Spinner spinner, List<String> data) {
         // 現在の Context（このActivity）にアダプターを使ってdataをString型で一行表示する
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
+
         // アダプターにドロップダウンを設定
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // 受け取ったスピナーに上記のレイアウトがあるアダプターをセットして表示
+
+        // 受け取ったスピナーに上記レイアウトのアダプターをセットして表示
         spinner.setAdapter(adapter);
     }
 
@@ -151,20 +151,14 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
             String day = daySpinner.getSelectedItem().toString();
             String dateS = year + "/" + month + "/" + day;
 
-            // Todo 日付の入力が正しい値かチェック　NGならreturn
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-            // 厳密なチェックをしたいときはfalse（デフォルト(勝手に修正)はtrue）
-            sdf.setLenient(false);
-
-            try {
-                Date date = sdf.parse(dateS); // ← 2月30日は存在しない
-            } catch (ParseException e) {
+            // 正しい日付かチェック
+            if(!dateCheck(dateS)){
                 Toast.makeText(this, "存在しない日付です", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (titleS.equals("")) {
-                Toast.makeText(this, "タイトルの入力は必須です", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "タイトルが未入力です", Toast.LENGTH_SHORT).show();
             } else {
                 SQLiteDatabase db = dbHelper.getWritableDatabase(); // 書き込み用のDBを開く
 
@@ -198,6 +192,17 @@ public class NewActivity extends AppCompatActivity implements View.OnClickListen
             Intent intentToTop = new Intent(this, MainActivity.class);
             startActivity(intentToTop);
             finish();
+        }
+    }
+
+    private boolean dateCheck(String dateS) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        sdf.setLenient(false); // 実在するかチェック falseでエラー出す true(デフォ)は勝手に補正される
+        try {
+            Date date = sdf.parse(dateS);
+            return true;
+        }catch (ParseException e){
+            return false;
         }
     }
 }

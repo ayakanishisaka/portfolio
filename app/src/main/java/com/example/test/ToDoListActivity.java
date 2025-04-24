@@ -48,10 +48,10 @@ public class ToDoListActivity extends AppCompatActivity
 
         dbHelper = new TodoDbHelper(this);
 
-        loadTodos();
+        loadToDos();
     }
 
-    private void loadTodos() {
+    private void loadToDos() {
         SQLiteDatabase db = dbHelper.getReadableDatabase(); // 読み取り専用DBを開く
         todoList.clear(); // リストを一度クリア（再読み込み対策）
         todoIdList.clear();
@@ -113,7 +113,7 @@ public class ToDoListActivity extends AppCompatActivity
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 db.delete("todos", "id = ?", new String[]{String.valueOf(todoId)});
                 db.close();
-                loadTodos();
+                loadToDos();
                 Toast.makeText(ToDoListActivity.this, "削除しました", Toast.LENGTH_SHORT).show();
             }
         });
